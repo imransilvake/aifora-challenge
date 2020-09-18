@@ -1,1 +1,15 @@
-// add colors
+$color1: #ffffff;
+$color2: #f3f3f3;
+$color3: #a4a4a4;
+$color4: #eae1e5;
+$color5: #c1255a;
+$color6: #cccccc;
+
+:root {
+	--c1: #{$color1};
+	--c2: #{$color2};
+	--c3: #{$color3};
+	--c4: #{$color4};
+	--c5: #{$color5};
+	--c6: #{$color6};
+}
