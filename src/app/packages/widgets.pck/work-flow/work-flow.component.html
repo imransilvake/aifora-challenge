@@ -1,0 +1,72 @@
+<div class="app-work-flow"
+	 *ngIf="data && data.length">
+	<ng-container *ngFor="let item of data; let idx = index; let last = last;"
+				  [ngSwitch]="!!item.all">
+		<!-- All -->
+		<ng-container *ngSwitchCase="true">
+			<div class="app-all">
+				<!-- Values -->
+				<div class="app-values">
+					<p>{{item.content.stock.value}} <b>{{item.content.stock.label}}</b></p>
+					<p>{{item.content.planning.value}} <b>{{item.content.planning.label}}</b></p>
+				</div>
+
+				<!-- Percentage -->
+				<div class="app-percentage">
+					<p>{{ (item.content.planning.value/item.content.stock.value) * 100 }}%</p>
+				</div>
+
+				<!-- Icon -->
+				<img class="app-curly-bracket"
+					 [src]="'assets/svg/curly-bracket.svg'"
+					 alt="curly-brackets" />
+			</div>
+		</ng-container>
+
+		<!-- Item(s) -->
+		<ng-container *ngSwitchCase="false">
+			<div class="app-items">
+				<div class="app-item"
+					 (click)="onClickSelectItem(item, idx)">
+					<!-- Circle -->
+					<div class="app-circle">
+						<app-percentage-circle [percentage]="item.percentage"
+											   [strokeWidth]="35"
+											   [selected]="selectedIndex === idx">
+						</app-percentage-circle>
+					</div>
+
+					<!-- Values -->
+					<div class="app-values"
+						 [class.app-active]="selectedIndex === idx">
+						<h4>{{item.label}}</h4>
+						<p *ngIf="item.checkboxes">{{sumTotalBucketValue(item.checkboxes)}}</p>
+					</div>
+
+					<!-- Icon -->
+					<img *ngIf="!last"
+						 class="app-forward"
+						 [src]="'assets/svg/forward.svg'"
+						 alt="forward" />
+				</div>
+
+				<!-- Checkboxes -->
+				<div class="app-checkboxes"
+					 *ngIf="item && item.checkboxes && selectedIndex === idx">
+					<ng-container *ngFor="let checkbox of item.checkboxes; let cIdx = index">
+						<label [for]="componentId + '-' + cIdx"
+							   class="app-checkbox container">
+							{{checkbox.value}} <b>{{checkbox.key}}</b>
+							<input type="checkbox"
+								   [id]="componentId + '-' + cIdx"
+								   [name]="checkbox.key"
+								   [formControl]="form.controls['cb'].value[item.label][cIdx]"
+								   (change)="onChangeCheckbox(item)">
+							<span class="app-checkmark"></span>
+						</label>
+					</ng-container>
+				</div>
+			</div>
+		</ng-container>
+	</ng-container>
+</div>

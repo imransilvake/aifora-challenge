@@ -19,7 +19,7 @@ import { FrameModule } from './packages/frame.pck/frame.module';
 		RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),
 
 		// frame
-		FrameModule,
+		FrameModule
 	],
 	declarations: [
 		AppComponent

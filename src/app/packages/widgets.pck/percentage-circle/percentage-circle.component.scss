@@ -1,0 +1,50 @@
+@import './../../../../assets/scss/colors.scss';
+
+.app-percentage-circle {
+	width: 70px;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+
+	h6 {
+		color: var(--c6);
+	}
+
+	svg {
+		bottom: 0;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+
+		.app-circle {
+			fill: none;
+			stroke: var(--c3);
+		}
+
+		.app-circle-bg {
+			fill: none;
+			stroke: var(--c6);
+		}
+	}
+
+	&.app-active {
+		h6 {
+			color: var(--c5);
+		}
+
+		svg {
+			.app-circle {
+				stroke: var(--c5);
+			}
+
+			.app-circle-bg {
+				stroke: var(--c4);
+			}
+		}
+	}
+}

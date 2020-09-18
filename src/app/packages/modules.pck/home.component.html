@@ -1,3 +1,15 @@
 <div class="app-home">
 	<h1>Home Page</h1>
+
+	<!-- Work Flow -->
+	<app-work-flow [data]="workflowItems"
+				   (payloadChange)="onPayloadChange($event)">
+	</app-work-flow>
+
+	<br>
+
+	<!-- Work Flow -->
+	<app-work-flow [data]="workflowItems"
+				   (payloadChange)="onPayloadChange($event)">
+	</app-work-flow>
 </div>
