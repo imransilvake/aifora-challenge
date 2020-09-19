@@ -1,7 +1,7 @@
 <div class="app-work-flow">
 	<!-- Bucket(s) -->
 	<ng-container *ngIf="data && data['buckets'] && data['buckets'].length">
-		<ng-container *ngFor="let bucket of data['buckets']; let idx = index; let last = last;"
+		<ng-container *ngFor="let bucket of data['buckets']; let idx = index; let last = last; trackBy: trackByFn"
 					  [ngSwitch]="bucket.id === bucketTypeAll">
 			<!-- All -->
 			<ng-container *ngSwitchCase="true">

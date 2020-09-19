@@ -19,17 +19,12 @@
 		display: block;
 		position: relative;
 
-		&.app-transition {
-			.app-circle {
-				transition: stroke-dashoffset 1s;
-			}
-		}
-
 		.app-circle {
 			fill: transparent;
 			stroke: var(--c3);
 			transform: rotate(-90deg);
 			transform-origin: 50% 50%;
+			transition: stroke-dashoffset 1s;
 
 			&.app-circle-bg {
 				stroke: var(--c6);

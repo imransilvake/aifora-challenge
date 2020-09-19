@@ -33,6 +33,14 @@ export class WorkFlowComponent implements OnInit {
 	}
 
 	/**
+	 * keep track of for loop
+	 * @param index
+	 */
+	public trackByFn(index: number) {
+		return index;
+	}
+
+	/**
 	 * initialize the work flow form
 	 */
 	public initWorkFlowForm() {
