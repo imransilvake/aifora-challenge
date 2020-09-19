@@ -44,14 +44,15 @@ export class HomeComponent implements OnInit {
 			buckets: this.workflowContent['buckets'].map(b => {
 				if (b.label === bucket.label) {
 					let percentage = 0;
-					if (bucket.checkboxes[0] && bucket.checkboxes[0].selected) {
-						percentage = 60;
-					} else if (bucket.checkboxes[1] && bucket.checkboxes[1].selected) {
+					if (bucket.checkboxes[0] && bucket.checkboxes[0].selected && bucket.checkboxes[1] && bucket.checkboxes[1].selected) {
 						percentage = 90;
+					} else if (bucket.checkboxes[0] && bucket.checkboxes[0].selected) {
+						percentage = 50;
+					} else if (bucket.checkboxes[1] && bucket.checkboxes[1].selected) {
+						percentage = 70;
 					} else {
-						percentage = 76;
+						percentage = 20;
 					}
-
 					return {
 						...bucket,
 						percentage
