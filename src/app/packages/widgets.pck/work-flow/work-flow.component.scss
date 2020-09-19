@@ -116,23 +116,23 @@
 				.app-checkmark {
 					border: 2px solid var(--c7);
 					border-radius: 4px;
-					width: 15px;
+					width: 13px;
 					left: 0;
 					position: absolute;
 					top: 0;
-					height: 15px;
+					height: 13px;
 
 					&::after {
 						border: solid var(--c5);
-						border-width: 0 3px 3px 0;
+						border-width: 0 2px 2px 0;
 						content: '';
 						display: none;
-						height: 8px;
+						height: 7px;
 						left: 4px;
 						position: absolute;
 						top: 1px;
 						transform: rotate(45deg);
-						width: 4px;
+						width: 3px;
 					}
 				}
 			}
@@ -160,12 +160,6 @@
 
 		.app-items {
 			margin: auto;
-
-			.app-item {
-				.app-forward {
-					display: none;
-				}
-			}
 		}
 	}
 }

@@ -1,0 +1,63 @@
+[
+	{
+		"all": true,
+		"content": {
+			"stock": {
+				"label": "Total Stocks",
+				"value": 5012
+			},
+			"planning": {
+				"label": "In Planning",
+				"value": 1253
+			}
+		}
+	},
+	{
+		"label": "New",
+		"percentage": 76,
+		"checkboxes": [
+			{
+				"key": "Successes",
+				"value": 812,
+				"selected": true
+			},
+			{
+				"key": "Exceptions",
+				"value": 127,
+				"selected": false
+			}
+		]
+	},
+	{
+		"label": "Approval",
+		"percentage": 18,
+		"checkboxes": [
+			{
+				"key": "Option 1",
+				"value": 200,
+				"selected": false
+			},
+			{
+				"key": "Option 2",
+				"value": 50,
+				"selected": false
+			}
+		]
+	},
+	{
+		"label": "Planned",
+		"percentage": 10,
+		"checkboxes": [
+			{
+				"key": "Started",
+				"value": 100,
+				"selected": false
+			},
+			{
+				"key": "Todo",
+				"value": 600,
+				"selected": false
+			}
+		]
+	}
+]

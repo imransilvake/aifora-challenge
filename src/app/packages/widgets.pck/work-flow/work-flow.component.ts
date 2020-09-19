@@ -21,9 +21,17 @@ export class WorkFlowComponent implements OnInit {
 
 	public selectedIndex = -1;
 	public form: FormGroup;
-	public componentId = ++componentId;
+	public uniqueComponentId = ++componentId;
 
 	ngOnInit() {
+		// initialize the work flow form
+		this.initWorkFlowForm();
+	}
+
+	/**
+	 * initialize the work flow form
+	 */
+	public initWorkFlowForm() {
 		// fill form with checkboxes data 
 		if (this.data && this.data.length) {
 			const payload = [];
@@ -63,10 +71,12 @@ export class WorkFlowComponent implements OnInit {
 		this.selectedIndex = index;
 
 		// prepare payload
-		const payload = this.preparePayload(item);
+		if (item) {
+			const payload = this.preparePayload(item);
 
-		// emit payload to parent component
-		this.payloadChange.emit(payload);
+			// emit payload to parent component
+			this.payloadChange.emit(payload);
+		}
 	}
 
 	/**

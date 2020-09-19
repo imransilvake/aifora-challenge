@@ -17,10 +17,25 @@ describe('PercentageCircleComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(PercentageCircleComponent);
 		component = fixture.componentInstance;
+		
 		fixture.detectChanges();
 	});
 
-	it('should create', () => {
+	it('should create PercentageCircleComponent', () => {
 		expect(component).toBeTruthy();
+	});
+
+	it('should have percentage Input() as type number property', () => {
+		component.percentage = 50;
+		expect(typeof component.percentage).toBe('number');
+	});
+
+	it('should have correct stroke dash-array with 50% percentage', () => {
+		component.percentage = 50;
+		component.calculateStrokeDashArray();
+		const strokeDasharray = component.strokeDasharray;
+
+		expect(component.percentage).toBe(50);
+		expect(strokeDasharray).toBe('calc(0.5 * calc(6.28 * 139)) calc(6.28 * 139)');
 	});
 });

@@ -54,11 +54,11 @@
 				<div class="app-checkboxes"
 					 *ngIf="item && item.checkboxes && selectedIndex === idx">
 					<ng-container *ngFor="let checkbox of item.checkboxes; let cIdx = index">
-						<label [for]="componentId + '-' + cIdx"
+						<label [for]="uniqueComponentId + '-' + cIdx"
 							   class="app-checkbox container">
 							{{checkbox.value}} <b>{{checkbox.key}}</b>
 							<input type="checkbox"
-								   [id]="componentId + '-' + cIdx"
+								   [id]="uniqueComponentId + '-' + cIdx"
 								   [name]="checkbox.key"
 								   [formControl]="form.controls['cb'].value[item.label][cIdx]"
 								   (change)="onChangeCheckbox(item)">
