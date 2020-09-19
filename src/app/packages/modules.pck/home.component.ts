@@ -29,6 +29,23 @@ export class HomeComponent implements OnInit {
 	 * @param payload
 	 */
 	public onPayloadChange(payload: WorkflowItemsInterface) {
-		console.log(payload);
+		// API call to fetch data...
+
+		// compare current and existing payload
+		const exisitngPayload = this.workflowItems.filter(item => item.label === payload.label)[0];
+		if (JSON.stringify(exisitngPayload) === JSON.stringify(payload)) {
+			return;
+		}
+
+		// update work flow input list
+		this.workflowItems = this.workflowItems.map(item => {
+			if (item.label === payload.label) {
+				return {
+					...payload,
+					percentage: 30
+				};
+			}
+			return item;
+		});
 	}
 }

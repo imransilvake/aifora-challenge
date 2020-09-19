@@ -1,30 +1,28 @@
-<div class="app-percentage-circle" [class.app-active]="selected">
+<div class="app-percentage-circle"
+	 [class.app-active]="selected">
 	<!-- Value -->
-	<h6>{{ percentage }}%</h6>
+	<div class="app-value">
+		<h6>{{ percentage }}%</h6>
+	</div>
 
-	<!-- Circle -->
-	<svg x="0px"
-		 y="0px"
-		 viewBox="0 0 397.6 435.3"
-		 enable-background="new 0 0 397.6 435.3"
-		 xml:space="preserve"
-		 class="svg">
+	<!-- Ring -->
+	<svg [attr.height]="radius * 2"
+		 [attr.width]="radius * 2"
+		 [class.app-transition]="transition">
+		<circle class="app-circle app-circle-bg"
+				attr.stroke-dasharray="{{circumference}} {{circumference}}"
+				attr.stroke-width="{{stroke}}"
+				attr.stroke-dashoffset="0"
+				attr.r="{{normalizedRadius}}"
+				attr.cx="{{radius}}"
+				attr.cy="{{radius}}" />
 
-		<!-- Circle Background -->
-		<circle class="app-circle-bg"
-				cx="198.3"
-				cy="217.3"
-				r="139.2"
-				transform="rotate(270 198.3 217.3)"
-				attr.stroke-width="{{strokeWidth}}px" />
-
-		<!-- Circle -->
 		<circle class="app-circle"
-				cx="198.3"
-				cy="217.3"
-				r="139.2"
-				transform="rotate(270 198.3 217.3)"
-				attr.stroke-width="{{strokeWidth}}px"
-				attr.stroke-dasharray="{{strokeDasharray}}" />
+				attr.stroke-dasharray="{{circumference}} {{circumference}}"
+				attr.stroke-width="{{stroke}}"
+				attr.stroke-dashoffset="{{strokeOffset}}"
+				attr.r="{{normalizedRadius}}"
+				attr.cx="{{radius}}"
+				attr.cy="{{radius}}" />
 	</svg>
 </div>

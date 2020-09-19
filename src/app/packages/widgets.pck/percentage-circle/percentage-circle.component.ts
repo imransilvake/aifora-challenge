@@ -1,5 +1,5 @@
 // angular
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
 	selector: 'app-percentage-circle',
@@ -7,28 +7,44 @@ import { Component, Input, OnInit } from '@angular/core';
 	styleUrls: ['./percentage-circle.component.scss']
 })
 
-export class PercentageCircleComponent implements OnInit {
-	@Input() percentage: number;
-	@Input() strokeWidth: number;
+export class PercentageCircleComponent implements OnInit, OnChanges {
+	@Input() percentage: number = 0;
+	@Input() stroke = 5;
+	@Input() radius = 30;
 	@Input() selected = false;
 
-	public pi = 3.14;
-	public radius = 139;
-	public strokeDasharray: string;
+	public normalizedRadius = this.radius - this.stroke * 2;
+	public circumference = this.normalizedRadius * 2 * Math.PI;
+	public strokeOffset = this.circumference;
+	public transition = false;
+
+	ngOnChanges(changes: SimpleChanges) {
+		// update stoke offset based on percentage
+		// skip first time
+		if (!changes['percentage']) {
+			this.applyPercentage(!this.selected);
+		}
+	}
 
 	ngOnInit() {
-		// calculate stroke dash array
-		this.calculateStrokeDashArray();
+		// update stoke offset based on percentage
+		this.applyPercentage(true);
 	}
 
 	/**
-	 * calculate stroke dash array
+	 * update stoke offset based on percentage
+	 * @param animate
 	 */
-	public calculateStrokeDashArray() {
-		// circumference = 2πr; radius is 139
-		// value: calc(0.5 * calc(6.28318531 * 139)) calc(6.28318531 * 139)
-		const val1 = `calc(${this.percentage / 100} * calc(${this.pi * 2} * ${this.radius}))`;
-		const val2 = `calc(${this.pi * 2} * ${this.radius})`;
-		this.strokeDasharray = `${val1} ${val2}`;
+	public applyPercentage(animate = false) {
+		// add transition
+		this.transition = animate;
+
+		// animate
+		if (this.percentage) {
+			for (let i = 0; i < this.percentage; i++) {
+				// update stroke offset
+				setTimeout(() => this.strokeOffset = this.circumference * (1 - i / 100), i * 10);
+			}
+		}
 	}
 }

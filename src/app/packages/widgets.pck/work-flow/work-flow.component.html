@@ -31,7 +31,6 @@
 					<!-- Circle -->
 					<div class="app-circle">
 						<app-percentage-circle [percentage]="item.percentage"
-											   [strokeWidth]="35"
 											   [selected]="selectedIndex === idx">
 						</app-percentage-circle>
 					</div>
@@ -53,7 +52,7 @@
 				<!-- Checkboxes -->
 				<div class="app-checkboxes"
 					 *ngIf="item && item.checkboxes && selectedIndex === idx">
-					<ng-container *ngFor="let checkbox of item.checkboxes; let cIdx = index">
+					<ng-container *ngFor="let checkbox of item.checkboxes; let cIdx = index;">
 						<label [for]="uniqueComponentId + '-' + cIdx"
 							   class="app-checkbox container">
 							{{checkbox.value}} <b>{{checkbox.key}}</b>

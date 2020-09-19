@@ -7,8 +7,9 @@
 	padding: 15px;
 
 	.app-all {
-		align-items: center;
+		align-items: flex-start;
 		display: flex;
+		margin-top: 10px;
 
 		.app-values {
 			p {
@@ -44,12 +45,14 @@
 	}
 
 	.app-items {
-		flex: 1 0 20%;
+		// flex: 1 0 20%;
 
 		.app-item {
 			align-items: center;
 			cursor: pointer;
 			display: flex;
+			margin-bottom: 5px;
+			min-width: 265px;
 
 			h4,
 			p {
@@ -58,6 +61,7 @@
 
 			.app-values {
 				color: var(--c3);
+				margin-left: 5px;
 
 				&.app-active {
 					color: var(--c5);
@@ -81,6 +85,7 @@
 		.app-checkboxes {
 			display: flex;
 			flex-wrap: wrap;
+			max-width: 265px;
 
 			label,
 			input {
@@ -90,7 +95,7 @@
 			.app-checkbox {
 				cursor: pointer;
 				display: block;
-				font-size: 15px;
+				font-size: 14px;
 				margin-bottom: 10px;
 				margin-right: 10px;
 				padding-left: 25px;
@@ -144,6 +149,7 @@
 		display: block;
 
 		.app-all {
+			align-items: center;
 			flex-direction: column-reverse;
 			flex-wrap: wrap-reverse;
 			justify-content: center;
@@ -160,6 +166,14 @@
 
 		.app-items {
 			margin: auto;
+
+			.app-item {
+				min-width: 100%;
+			}
+
+			.app-checkboxes {
+				max-width: 100%;
+			}
 		}
 	}
 }

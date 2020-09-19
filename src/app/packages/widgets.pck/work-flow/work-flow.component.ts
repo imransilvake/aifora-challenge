@@ -1,5 +1,5 @@
 // angular
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
