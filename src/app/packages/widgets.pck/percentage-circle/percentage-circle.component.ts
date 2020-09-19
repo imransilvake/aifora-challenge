@@ -7,8 +7,8 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 	styleUrls: ['./percentage-circle.component.scss']
 })
 
-export class PercentageCircleComponent implements OnInit, OnChanges {
-	@Input() percentage: number = 0;
+export class PercentageCircleComponent implements OnChanges, OnInit {
+	@Input() percentage = 0;
 	@Input() stroke = 5;
 	@Input() radius = 30;
 	@Input() selected = false;
@@ -17,6 +17,7 @@ export class PercentageCircleComponent implements OnInit, OnChanges {
 	public circumference = this.normalizedRadius * 2 * Math.PI;
 	public strokeOffset = this.circumference;
 	public transition = false;
+	public clearTimeouts = [];
 
 	ngOnChanges(changes: SimpleChanges) {
 		// update stoke offset based on percentage
@@ -35,15 +36,27 @@ export class PercentageCircleComponent implements OnInit, OnChanges {
 	 * update stoke offset based on percentage
 	 * @param animate
 	 */
-	public applyPercentage(animate = false) {
+	public applyPercentage(animate: boolean) {
+		// clear timeout(s)
+		if (this.clearTimeouts && this.clearTimeouts.length) {
+			for (let i = 0; i < this.clearTimeouts.length; i++) {
+				clearTimeout(this.clearTimeouts[i]);
+			}
+			this.clearTimeouts = [];
+		}
+
 		// add transition
 		this.transition = animate;
 
-		// animate
+		// animate by updating stroke offset
 		if (this.percentage) {
 			for (let i = 0; i < this.percentage; i++) {
 				// update stroke offset
-				setTimeout(() => this.strokeOffset = this.circumference * (1 - i / 100), i * 10);
+				this.clearTimeouts.push(
+					setTimeout(
+						() => this.strokeOffset = this.circumference * (1 - i / 100), i * 10
+					)
+				);
 			}
 		}
 	}

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // app
-import { WorkflowItemsInterface } from './home.interface';
+import { WFInterface } from '../widgets.pck/work-flow/work-flow.interface';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
@@ -14,7 +14,7 @@ export class HomeService {
 	/**
 	 * fetch mock data
 	 */
-	public fetchWorkFlowData(): Observable<WorkflowItemsInterface[]> {
-		return this._http.get<WorkflowItemsInterface[]>('./../../assets/mocks/mock-data.json');
+	public fetchWorkFlowData(): Observable<WFInterface> {
+		return this._http.get<WFInterface>('./../../assets/mocks/mock-data.json');
 	}
 }

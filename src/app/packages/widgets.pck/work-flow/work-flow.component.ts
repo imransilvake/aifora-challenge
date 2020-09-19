@@ -1,10 +1,11 @@
 // angular
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 // app
-import { WorkflowCheckboxInterface, WorkflowItemsInterface } from '../../modules.pck/home.interface';
+import { WFBucketCheckboxInterface, WFBucketsInterface, WFButtonsInterface } from './work-flow.interface';
+import { WFBucketTypes } from './work-flow.enum';
 
 // for unique id
 let componentId = 0;
@@ -16,12 +17,15 @@ let componentId = 0;
 })
 
 export class WorkFlowComponent implements OnInit {
-	@Input() data: WorkflowItemsInterface[];
-	@Output() payloadChange: EventEmitter<WorkflowItemsInterface> = new EventEmitter<WorkflowItemsInterface>();
+	@Input() data: WFBucketsInterface[];
+	@Output() bucketSelect: EventEmitter<WFBucketsInterface> = new EventEmitter<WFBucketsInterface>();
+	@Output() buttonSelect: EventEmitter<WFButtonsInterface> = new EventEmitter<WFButtonsInterface>();
 
 	public selectedIndex = -1;
+	public selectedBucketType;
 	public form: FormGroup;
 	public uniqueComponentId = ++componentId;
+	public bucketTypeAll = WFBucketTypes.ALL;
 
 	ngOnInit() {
 		// initialize the work flow form
@@ -33,14 +37,15 @@ export class WorkFlowComponent implements OnInit {
 	 */
 	public initWorkFlowForm() {
 		// fill form with checkboxes data 
-		if (this.data && this.data.length) {
+		if (this.data && this.data['buckets'] && this.data['buckets'].length) {
+			const buckets = this.data['buckets'];
 			const payload = [];
-			for (let i = 0; i < this.data.length; i++) {
-				if (!this.data[i].all) { // ignore: all
-					const label = this.data[i].label;
+			for (let i = 0; i < buckets.length; i++) {
+				if (buckets[i].id !== this.bucketTypeAll) { // ignore bucket type: all
+					const label = buckets[i].label;
 					payload[label] = [];
-					for (let j = 0; j < this.data[i].checkboxes.length; j++) {
-						const val = this.data[i].checkboxes[j].selected;
+					for (let j = 0; j < buckets[i].checkboxes.length; j++) {
+						const val = buckets[i].checkboxes[j].selected;
 						payload[label].push(new FormControl(val))
 					}
 				}
@@ -57,59 +62,69 @@ export class WorkFlowComponent implements OnInit {
 	 * sum of all the available options
 	 * @param checkboxes
 	 */
-	public sumTotalBucketValue(checkboxes: WorkflowCheckboxInterface[]): number {
+	public sumTotalBucketValue(checkboxes: WFBucketCheckboxInterface[]): number {
 		return checkboxes.reduce((a, b) => a + b.value, 0);
 	}
 
 	/**
-	 * on select item from the list
-	 * @param item
+	 * on select bucket from the list
+	 * @param bucket
 	 * @param index
 	 */
-	public onClickSelectItem(item: WorkflowItemsInterface, index: number) {
-		// select current item
+	public onBucketSelect(bucket: WFBucketsInterface, index: number) {
+		// select current bucket
 		this.selectedIndex = index;
+		this.selectedBucketType = bucket && bucket.id;
 
-		// prepare payload
-		if (item) {
-			const payload = this.preparePayload(item);
+		// prepare bucket payload
+		if (bucket) {
+			const payload = this.prepareBucketPayload(bucket);
 
 			// emit payload to parent component
-			this.payloadChange.emit(payload);
+			this.bucketSelect.emit(payload);
 		}
 	}
 
 	/**
-	 * on checkbox toggle 
-	 * @param item
+	 * on bucket checkbox change 
+	 * @param bucket
 	 */
-	public onChangeCheckbox(item: WorkflowItemsInterface) {
-		// prepare payload
-		const payload = this.preparePayload(item);
+	public onBucketCheckboxChange(bucket: WFBucketsInterface) {
+		// prepare bucket payload
+		const payload = this.prepareBucketPayload(bucket);
 
 		// emit payload to parent component
-		this.payloadChange.emit(payload);
+		this.bucketSelect.emit(payload);
 	}
 
 	/**
 	 * prepare payload for the parent component
-	 * @param item
+	 * @param bucket
 	 */
-	public preparePayload(item: WorkflowItemsInterface): WorkflowItemsInterface {
+	public prepareBucketPayload(bucket: WFBucketsInterface): WFBucketsInterface {
 		const payload = [];
 
 		// push values to payload
-		for (let i = 0; i < item.checkboxes.length; i++) {
+		for (let i = 0; i < bucket.checkboxes.length; i++) {
 			payload.push({
-				key: item.checkboxes[i].key,
-				value: item.checkboxes[i].value,
-				selected: this.form.controls['cb'].value[item.label][i].value
+				key: bucket.checkboxes[i].key,
+				value: bucket.checkboxes[i].value,
+				selected: this.form.controls['cb'].value[bucket.label][i].value
 			})
 		}
 
 		return {
-			...item,
+			...bucket,
 			checkboxes: payload
 		};
+	}
+
+	/**
+	 * on click button
+	 * @param button
+	 */
+	public onButtonSelect(button: WFButtonsInterface) {
+		// emit button to parent component
+		this.buttonSelect.emit(button);
 	}
 }

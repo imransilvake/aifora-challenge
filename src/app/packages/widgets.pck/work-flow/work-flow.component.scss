@@ -4,7 +4,7 @@
 	background-color: var(--c2);
 	display: flex;
 	flex-wrap: wrap;
-	padding: 15px;
+	padding: 15px 15px 5px;
 
 	.app-all {
 		align-items: flex-start;
@@ -44,10 +44,8 @@
 		}
 	}
 
-	.app-items {
-		// flex: 1 0 20%;
-
-		.app-item {
+	.app-buckets {
+		.app-bucket {
 			align-items: center;
 			cursor: pointer;
 			display: flex;
@@ -144,6 +142,46 @@
 		}
 	}
 
+	.app-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		margin-top: 10px;
+		width: 100%;
+
+		.app-button {
+			background-color: var(--c4);
+			border: 1px solid var(--c4);
+			border-radius: 17px;
+			color: var(--c5);
+			font-size: 15px;
+			margin-bottom: 10px;
+			margin-left: 10px;
+			outline: none;
+			padding: 6px 20px;
+			text-decoration: none;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:not(:disabled) {
+				cursor: pointer;
+			}
+
+			&:not(:disabled):hover {
+				background-color: var(--c5);
+				color: var(--c1);
+			}
+
+			&:disabled {
+				background-color: var(--c8);
+				border: 1px solid var(--c8);
+				color: var(--c1);
+			}
+		}
+	}
+
 	// media
 	@media (max-width: 600px) {
 		display: block;
@@ -164,15 +202,30 @@
 			}
 		}
 
-		.app-items {
+		.app-buckets {
 			margin: auto;
 
-			.app-item {
+			.app-bucket {
 				min-width: 100%;
 			}
 
 			.app-checkboxes {
 				max-width: 100%;
+			}
+		}
+
+		.app-buttons {
+			display: block;
+			margin-top: 20px;
+
+			.app-button {
+				margin: 0 0 10px;
+				padding: 8px 20px;
+				width: 100%;
+
+				&:last-child {
+					margin-bottom: 15px;
+				}
 			}
 		}
 	}

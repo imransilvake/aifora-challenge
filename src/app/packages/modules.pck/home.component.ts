@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 // app
 import { HomeService } from './home.service';
-import { WorkflowItemsInterface } from './home.interface';
+import { WFInterface, WFBucketsInterface, WFButtonsInterface } from '../widgets.pck/work-flow/work-flow.interface';
 
 @Component({
 	selector: 'app-home',
@@ -12,7 +12,7 @@ import { WorkflowItemsInterface } from './home.interface';
 })
 
 export class HomeComponent implements OnInit {
-	public workflowItems: WorkflowItemsInterface[];
+	public workflowContent: WFInterface;
 
 	constructor(private _homeService: HomeService) {
 	}
@@ -21,31 +21,52 @@ export class HomeComponent implements OnInit {
 		// fetch mock data from the service
 		this._homeService
 			.fetchWorkFlowData()
-			.subscribe((res: WorkflowItemsInterface[]) => this.workflowItems = res);
+			.subscribe((res: WFInterface) => this.workflowContent = res);
 	}
 
 	/**
-	 * on payload change
-	 * @param payload
+	 * on bucket select
+	 * @param bucket
 	 */
-	public onPayloadChange(payload: WorkflowItemsInterface) {
-		// API call to fetch data...
+	public onBucketSelect(bucket: WFBucketsInterface) {
+		// API call to fetch data
+
+		// fetch exisitng bucket
+		const exisitngPayload = this.workflowContent && this.workflowContent['buckets']
+			.filter(b => b.label === bucket.label)[0];
 
 		// compare current and existing payload
-		const exisitngPayload = this.workflowItems.filter(item => item.label === payload.label)[0];
-		if (JSON.stringify(exisitngPayload) === JSON.stringify(payload)) {
-			return;
-		}
+		if (JSON.stringify(exisitngPayload) === JSON.stringify(bucket)) return;
 
 		// update work flow input list
-		this.workflowItems = this.workflowItems.map(item => {
-			if (item.label === payload.label) {
-				return {
-					...payload,
-					percentage: 30
-				};
-			}
-			return item;
-		});
+		this.workflowContent = {
+			...this.workflowContent,
+			buckets: this.workflowContent['buckets'].map(b => {
+				if (b.label === bucket.label) {
+					let percentage = 0;
+					if (bucket.checkboxes[0] && bucket.checkboxes[0].selected) {
+						percentage = 60;
+					} else if (bucket.checkboxes[1] && bucket.checkboxes[1].selected) {
+						percentage = 90;
+					} else {
+						percentage = 76;
+					}
+
+					return {
+						...bucket,
+						percentage
+					};
+				}
+				return b;
+			})
+		};
+	}
+
+	/**
+	 * on button select
+	 * @param button
+	 */
+	public onButtonSelect(button: WFButtonsInterface) {
+		console.log(button);
 	}
 }

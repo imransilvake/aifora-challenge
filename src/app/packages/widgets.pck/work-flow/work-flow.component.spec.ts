@@ -5,7 +5,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 // app
 import { WorkFlowComponent } from './work-flow.component';
 import { PercentageCircleComponent } from '../percentage-circle/percentage-circle.component';
-import { WorkflowItemsInterface } from '../../modules.pck/home.interface';
+import { WFBucketsInterface } from './work-flow.interface';
+import { WFBucketTypes } from './work-flow.enum';
 
 describe('WorkFlowComponent', () => {
 	let component: WorkFlowComponent;
@@ -21,7 +22,7 @@ describe('WorkFlowComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(WorkFlowComponent);
 		component = fixture.componentInstance;
-		
+
 		fixture.detectChanges();
 	});
 
@@ -45,9 +46,9 @@ describe('WorkFlowComponent', () => {
 		expect(result).toBe(700);
 	});
 
-	it('should set current index on selecting an item', () => {
+	it('should set current index on selecting an bucket', () => {
 		// update selected index
-		component.onClickSelectItem(null, 2);
+		component.onBucketSelect(null, 2);
 
 		// expect
 		expect(component.selectedIndex).toBe(2);
@@ -64,18 +65,19 @@ describe('WorkFlowComponent', () => {
 		);
 
 		// detect value changes
-		component.payloadChange
-			.subscribe((item: WorkflowItemsInterface) => {
-				expect(item.all).toBeFalsy();
-				expect(item.label).toBe('Planned');
-				expect(item.checkboxes[0].key).toBe('Started');
-				expect(item.checkboxes[0].selected).toBeTruthy();
-				expect(item.checkboxes[1].key).toBe('Todo');
-				expect(item.checkboxes[1].selected).toBeTruthy();
+		component.bucketSelect
+			.subscribe((bucket: WFBucketsInterface) => {
+				expect(bucket.id === WFBucketTypes.ALL).toBeFalsy();
+				expect(bucket.label).toBe('Planned');
+				expect(bucket.checkboxes[0].key).toBe('Started');
+				expect(bucket.checkboxes[0].selected).toBeTruthy();
+				expect(bucket.checkboxes[1].key).toBe('Todo');
+				expect(bucket.checkboxes[1].selected).toBeTruthy();
 			});
 
-		// call method with sending item
-		component.onClickSelectItem({
+		// call method with sending bucket info
+		component.onBucketSelect({
+			id: 'planned',
 			label: 'Planned',
 			percentage: 10,
 			checkboxes: [{

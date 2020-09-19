@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { HomeComponent } from './home.component';
 import { WidgetsModule } from '../widgets.pck/widgets.module';
 import { HomeService } from './home.service';
-import { WorkflowItemsInterface } from './home.interface';
+import { WFInterface } from '../widgets.pck/work-flow/work-flow.interface';
 
 describe('PercentageCircleComponent', () => {
 	let component: HomeComponent;
@@ -29,21 +29,23 @@ describe('PercentageCircleComponent', () => {
 		homeService = TestBed.get(HomeService);
 		spyOn(homeService, 'fetchWorkFlowData')
 			.and.returnValue(
-				of([
-					{
-						label: 'New',
-						percentage: 76,
-						checkboxes: [{
-							key: 'Successes',
-							value: 812,
-							selected: true
-						}, {
-							key: 'Exceptions',
-							value: 127,
-							selected: false
-						}]
-					}
-				])
+				of({
+					buckets: [
+						{
+							label: 'New',
+							percentage: 76,
+							checkboxes: [{
+								key: 'Successes',
+								value: 812,
+								selected: true
+							}, {
+								key: 'Exceptions',
+								value: 127,
+								selected: false
+							}]
+						}
+					]
+				})
 			);
 	});
 
@@ -65,10 +67,10 @@ describe('PercentageCircleComponent', () => {
 
 	it('should have work flow data', () => {
 		homeService.fetchWorkFlowData()
-			.subscribe((res: WorkflowItemsInterface[]) => {
-				expect(res.length).toBe(1);
-				expect(res[0].label).toBe('New');
-				expect(res[0].percentage).toBe(76);
+			.subscribe((res: WFInterface) => {
+				expect(res['buckets'].length).toBe(1);
+				expect(res['buckets'][0].label).toBe('New');
+				expect(res['buckets'][0].percentage).toBe(76);
 			});
 	});
 });

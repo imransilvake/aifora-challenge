@@ -1,9 +1,10 @@
 <div class="app-home">
-	<h1>Home Page</h1>
+	<h1>Work Flow Widget</h1>
 
 	<!-- Work Flow -->
-	<app-work-flow *ngIf="workflowItems && workflowItems.length"
-				   [data]="workflowItems"
-				   (payloadChange)="onPayloadChange($event)">
+	<app-work-flow *ngIf="workflowContent && workflowContent['buckets']"
+				   [data]="workflowContent"
+				   (bucketSelect)="onBucketSelect($event)"
+				   (buttonSelect)="onButtonSelect($event)">
 	</app-work-flow>
 </div>
