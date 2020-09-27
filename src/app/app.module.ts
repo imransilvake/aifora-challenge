@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // app
 import { APP_ROUTES } from './app-routing';
@@ -15,11 +14,10 @@ import { FrameModule } from './packages/frame.pck/frame.module';
 		// angular
 		BrowserModule,
 		HttpClientModule,
-		BrowserAnimationsModule,
-		RouterModule.forRoot(APP_ROUTES, { onSameUrlNavigation: 'reload' }),
+		RouterModule.forRoot(APP_ROUTES),
 
 		// frame
-		FrameModule,
+		FrameModule
 	],
 	declarations: [
 		AppComponent

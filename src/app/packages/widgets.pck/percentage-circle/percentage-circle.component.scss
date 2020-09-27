@@ -1,0 +1,52 @@
+@import './../../../../assets/scss/colors.scss';
+
+.app-percentage-circle {
+	position: relative;
+
+	.app-value {
+		left: 50%;
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+
+		h6 {
+			color: var(--c3);
+		}
+	}
+
+	svg {
+		display: block;
+		position: relative;
+
+		.app-circle {
+			fill: transparent;
+			stroke: var(--c3);
+			transform: rotate(-90deg);
+			transform-origin: 50% 50%;
+			transition: stroke-dashoffset 1s;
+
+			&.app-circle-bg {
+				stroke: var(--c6);
+			}
+		}
+	}
+
+	&.app-active {
+		.app-value {
+			h6 {
+				color: var(--c5);
+			}
+		}
+
+		svg {
+			.app-circle {
+				stroke: var(--c5);
+
+				&.app-circle-bg {
+					stroke: var(--c4);
+				}
+			}
+		}
+	}
+}

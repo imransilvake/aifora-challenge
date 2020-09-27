@@ -1,0 +1,26 @@
+<div class="app-percentage-circle"
+	 [class.app-active]="selected">
+	<!-- Value -->
+	<div class="app-value">
+		<h6>{{ percentage }}%</h6>
+	</div>
+
+	<!-- Ring -->
+	<svg [attr.height]="radius * 2"
+		 [attr.width]="radius * 2">
+		<circle class="app-circle app-circle-bg"
+				attr.stroke-dasharray="{{circumference}} {{circumference}}"
+				attr.stroke-width="{{stroke}}"
+				attr.stroke-dashoffset="0"
+				attr.r="{{normalizedRadius}}"
+				attr.cx="{{radius}}"
+				attr.cy="{{radius}}" />
+		<circle class="app-circle"
+				attr.stroke-dasharray="{{circumference}} {{circumference}}"
+				attr.stroke-width="{{stroke}}"
+				attr.stroke-dashoffset="{{strokeOffset}}"
+				attr.r="{{normalizedRadius}}"
+				attr.cx="{{radius}}"
+				attr.cy="{{radius}}" />
+	</svg>
+</div>

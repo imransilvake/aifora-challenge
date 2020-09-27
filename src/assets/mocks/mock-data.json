@@ -1,0 +1,100 @@
+{
+	"buckets": [
+		{
+			"id": "all",
+			"content": {
+				"stock": {
+					"label": "Total Stocks",
+					"value": 5012
+				},
+				"planning": {
+					"label": "In Planning",
+					"value": 1253
+				}
+			}
+		},
+		{
+			"id": "new",
+			"label": "New",
+			"percentage": 76,
+			"checkboxes": [
+				{
+					"key": "Successes",
+					"value": 812,
+					"selected": true
+				},
+				{
+					"key": "Exceptions",
+					"value": 127,
+					"selected": false
+				}
+			]
+		},
+		{
+			"id": "approval",
+			"label": "Approval",
+			"percentage": 18,
+			"checkboxes": [
+				{
+					"key": "Option 1",
+					"value": 200,
+					"selected": false
+				},
+				{
+					"key": "Option 2",
+					"value": 50,
+					"selected": false
+				}
+			]
+		},
+		{
+			"id": "planned",
+			"label": "Planned",
+			"percentage": 10,
+			"checkboxes": [
+				{
+					"key": "Started",
+					"value": 100,
+					"selected": false
+				},
+				{
+					"key": "Todo",
+					"value": 600,
+					"selected": false
+				}
+			]
+		},
+		{
+			"id": "addtional-one",
+			"label": "Addtional 1",
+			"percentage": 60,
+			"checkboxes": [
+				{
+					"key": "Option 1",
+					"value": 100,
+					"selected": false
+				},
+				{
+					"key": "Option 2",
+					"value": 500,
+					"selected": true
+				}
+			]
+		}
+	],
+	"buttons": [
+		{
+			"id": "btn-upload-erp",
+			"label": "Upload to ERP",
+			"dependsOnBucket": "planned"
+		},
+		{
+			"id": "btn-one",
+			"label": "Button 1"
+		},
+		{
+			"id": "btn-two",
+			"label": "Button 2"
+		}
+	]
+}
