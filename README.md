@@ -1,5 +1,5 @@
-# Aifora Test
-Aifora test to implement a reusable “Workflow” component that is flexible and adaptable.
+# Aifora Challenge
+Aifora test to implement a reusable “Workflow” component that is flexible and adaptable using Angular 7.
 
 <p align="center">
 	<img src="preview.png" width="100%">
